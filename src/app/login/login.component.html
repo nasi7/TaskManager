@@ -1,1 +1,33 @@
-<p>login works!</p>
+<div class="login_space">
+  <div class="row">
+    <div class="col left">
+      <p class="mat-display-1">Login</p>
+      <mat-form-field id="username" appearance="fill">
+        <mat-label>Username or Email</mat-label>
+        <input matInput placeholder="manager@example.com" />
+        <mat-icon matSuffix>face</mat-icon>
+      </mat-form-field>
+      <mat-form-field id="password" appearance="fill">
+        <mat-label>Enter your password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          attr.aria-pressed="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+      </mat-form-field>
+      <div class="mat-h3">
+        Don't have an account? <a href=""> <strong>Sign Up!</strong></a>
+      </div>
+    </div>
+    <div class="col">
+      <div>
+        <div class="bg-image"></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+.login_space {
+  background-color: #d2b4de;
+  height: 600px;
+  width: 1100px;
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  transform: translate(-50%, -35%);
+  /*animation: fadein 1s ease-in-out*/
+}
+
+#login-title {
+  align-items: center;
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+mat-form-field.mat-form-field {
+  font-size: 18px;
+  color: accent;
+}
+
+.mat-display-1 {
+  margin-top: 30px;
+  margin-left: 200px;
+}
+
+#username,
+#password {
+  margin-top: 10px;
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+#username:hover,
+#password:hover {
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+}
+
+.mat-h3 {
+  text-align: right;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.col {
+  float: left;
+  width: 50%;
+}
+
+.bg-image {
+  background: url("../../assets/login-image.jpg");
+  width: 550px;
+  height: 600px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 0 10px 10px 0;
+}
+
+.left {
+  padding: 30px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@media screen and (max-width: 600px) {
+  .col {
+    width: 100%;
+  }
+}
