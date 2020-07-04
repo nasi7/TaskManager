@@ -1,40 +1,56 @@
-<mat-toolbar color="primary" class="mat-elevation-z8">
-  <p class="mat-headline">All Tasks</p>
-</mat-toolbar>
-<div>
-  <mat-table [dataSource]="allTasks" class="mat-elevation-z10">
+<div class="mat-elevation-z10">
+  <mat-toolbar color="primary">
+    <p class="mat-headline">All Tasks</p>
+    <span class="example-spacer"></span>
+    <mat-form-field appearance="fill">
+      <mat-label>Search</mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Ex. ash"
+        #input
+      />
+    </mat-form-field>
+  </mat-toolbar>
+  <mat-table [dataSource]="allTasks" matSort>
     <!-- Quote Type Column -->
-    <ng-container matColumnDef="Quote Type">
+    <ng-container matColumnDef="quoteType">
       <mat-header-cell *matHeaderCellDef> Quote Type </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{ element.quoteType }} </mat-cell>
     </ng-container>
 
     <!-- Quote ID Column -->
-    <ng-container matColumnDef="QuoteID">
-      <mat-header-cell *matHeaderCellDef> Quote ID </mat-header-cell>
+    <ng-container matColumnDef="ID">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Quote ID
+      </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{ element.ID }} </mat-cell>
     </ng-container>
 
     <!-- Contact Column -->
-    <ng-container matColumnDef="Contact">
-      <mat-header-cell *matHeaderCellDef> Contact </mat-header-cell>
+    <ng-container matColumnDef="contact">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Contact
+      </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{ element.contact }} </mat-cell>
     </ng-container>
 
     <!-- Task Description Column -->
-    <ng-container matColumnDef="Task">
+    <ng-container matColumnDef="taskDesc">
       <mat-header-cell *matHeaderCellDef> Task </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{ element.taskDesc }} </mat-cell>
     </ng-container>
 
     <!-- Due Date Column -->
-    <ng-container matColumnDef="Due Date">
-      <mat-header-cell *matHeaderCellDef> Due Date </mat-header-cell>
+    <ng-container matColumnDef="dueDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Due Date
+      </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{ element.dueDate }} </mat-cell>
     </ng-container>
 
     <!-- Task Type Column -->
-    <ng-container matColumnDef="Task Type">
+    <ng-container matColumnDef="taskType">
       <mat-header-cell *matHeaderCellDef> Task Type </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{ element.taskType }} </mat-cell>
     </ng-container>

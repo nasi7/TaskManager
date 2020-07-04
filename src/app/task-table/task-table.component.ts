@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ServerDataService } from '../server-data.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 export class Task {
   contact: string;
@@ -18,15 +20,18 @@ export class Task {
 })
 export class TaskTableComponent implements OnInit {
   displayedColumns: string[] = [
-    'Quote Type',
-    'QuoteID',
-    'Contact',
-    'Task',
-    'Due Date',
-    'Task Type',
+    'quoteType',
+    'ID',
+    'contact',
+    'taskDesc',
+    'dueDate',
+    'taskType',
   ];
   dataSource: Task[] = [];
-  allTasks;
+  allTasks: any;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+
   constructor(private DataService: ServerDataService) {
     DataService.getAllQuotes().subscribe(
       (data) => {
@@ -48,8 +53,15 @@ export class TaskTableComponent implements OnInit {
         console.log('returned data: ');
         console.log(this.dataSource);
         this.allTasks = new MatTableDataSource(this.dataSource);
+        this.allTasks.paginator = this.paginator;
+        this.allTasks.sort = this.sort;
       }
     );
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.allTasks.filter = filterValue.trim().toLowerCase();
   }
 
   ngOnInit(): void {}
