@@ -18,9 +18,9 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-mat-form-field.mat-form-field {
+mat-form-field.mat-form-field,
+#submitButton {
   font-size: 18px;
-  color: accent;
 }
 
 .mat-display-1 {
