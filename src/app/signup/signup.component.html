@@ -1,1 +1,72 @@
-<p>signup works!</p>
+<div class="signup_space">
+  <div class="row">
+    <div class="col left">
+      <p class="mat-display-1">Sign Up</p>
+      <form #loginForm="ngForm" (ngSubmit)="handleSubmit(loginForm)" novalidate>
+        <mat-form-field id="username" appearance="fill">
+          <mat-label>Username or Email</mat-label>
+          <input
+            matInput
+            name="username"
+            ngModel
+            required
+            placeholder="manager@example.com"
+          />
+          <mat-icon matSuffix>face</mat-icon>
+        </mat-form-field>
+        <mat-form-field id="password" appearance="fill">
+          <mat-label>Enter new password</mat-label>
+          <input
+            name="password"
+            ngModel
+            matInput
+            required
+            [type]="hide ? 'password' : 'text'"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            attr.aria-pressed="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field id="password" appearance="fill">
+          <mat-label>Confirm password</mat-label>
+          <input
+            name="confirmPassword"
+            ngModel
+            matInput
+            required
+            [type]="hide ? 'password' : 'text'"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            attr.aria-pressed="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+        </mat-form-field>
+        <button
+          id="submitButton"
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="!loginForm.valid"
+        >
+          Sign Up
+        </button>
+      </form>
+    </div>
+    <div class="col">
+      <div>
+        <div class="bg-image"></div>
+      </div>
+    </div>
+  </div>
+</div>
