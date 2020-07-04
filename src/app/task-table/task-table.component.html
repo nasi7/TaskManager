@@ -1,1 +1,49 @@
-<p>task-table works!</p>
+<mat-toolbar color="primary" class="mat-elevation-z8">
+  <p class="mat-headline">All Tasks</p>
+</mat-toolbar>
+<div>
+  <mat-table [dataSource]="allTasks" class="mat-elevation-z10">
+    <!-- Quote Type Column -->
+    <ng-container matColumnDef="Quote Type">
+      <mat-header-cell *matHeaderCellDef> Quote Type </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.quoteType }} </mat-cell>
+    </ng-container>
+
+    <!-- Quote ID Column -->
+    <ng-container matColumnDef="QuoteID">
+      <mat-header-cell *matHeaderCellDef> Quote ID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.ID }} </mat-cell>
+    </ng-container>
+
+    <!-- Contact Column -->
+    <ng-container matColumnDef="Contact">
+      <mat-header-cell *matHeaderCellDef> Contact </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.contact }} </mat-cell>
+    </ng-container>
+
+    <!-- Task Description Column -->
+    <ng-container matColumnDef="Task">
+      <mat-header-cell *matHeaderCellDef> Task </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.taskDesc }} </mat-cell>
+    </ng-container>
+
+    <!-- Due Date Column -->
+    <ng-container matColumnDef="Due Date">
+      <mat-header-cell *matHeaderCellDef> Due Date </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.dueDate }} </mat-cell>
+    </ng-container>
+
+    <!-- Task Type Column -->
+    <ng-container matColumnDef="Task Type">
+      <mat-header-cell *matHeaderCellDef> Task Type </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.taskType }} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+  ></mat-paginator>
+</div>
