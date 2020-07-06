@@ -1,0 +1,81 @@
+<h2 mat-dialog-title>Add New Task</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="AddTaskForm" (ngSubmit)="handleSubmit()">
+    <mat-form-field appearance="fill" color="accent">
+      <mat-label>Quote Type</mat-label>
+      <input matInput formControlName="quoteType" />
+      <div
+        *ngIf="
+          !AddTaskForm.get('quoteType').valid &&
+          AddTaskForm.get('quoteType').touched
+        "
+        style="color: red;"
+      >
+        *Required
+      </div>
+    </mat-form-field>
+    <br />
+    <mat-form-field color="accent" appearance="fill">
+      <mat-label>Contact</mat-label>
+      <input matInput formControlName="contact" />
+      <div
+        *ngIf="
+          !AddTaskForm.get('contact').valid &&
+          AddTaskForm.get('contact').touched
+        "
+        style="color: red;"
+      >
+        *Required
+      </div>
+    </mat-form-field>
+    <br />
+    <mat-form-field color="accent" appearance="fill">
+      <mat-label>Due Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dueDate" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <div
+        *ngIf="
+          !AddTaskForm.get('dueDate').valid &&
+          AddTaskForm.get('dueDate').touched
+        "
+        style="color: red;"
+      >
+        *Required
+      </div>
+    </mat-form-field>
+    <br />
+    <mat-form-field color="accent" appearance="fill">
+      <mat-label>Task Type</mat-label>
+      <input matInput formControlName="taskType" />
+      <div
+        *ngIf="
+          !AddTaskForm.get('taskType').valid &&
+          AddTaskForm.get('taskType').touched
+        "
+        style="color: red;"
+      >
+        *Required
+      </div>
+    </mat-form-field>
+    <br />
+    <mat-form-field color="accent" appearance="fill">
+      <mat-label>Task Description</mat-label>
+      <textarea matInput formControlName="taskDescription"></textarea>
+    </mat-form-field>
+    <br />
+    <button
+      id="saveButton"
+      type="submit"
+      mat-raised-button
+      color="accent"
+      [disabled]="!AddTaskForm.valid"
+    >
+      Save
+    </button>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Done</button>
+</mat-dialog-actions>

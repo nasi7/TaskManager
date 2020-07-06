@@ -4,12 +4,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { MaterialUiModule } from './material-ui/material-ui.module';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { TaskTableComponent } from './task-table/task-table.component';
+import { DialogContentComponent } from './dialog-content/dialog-content.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +20,7 @@ import { TaskTableComponent } from './task-table/task-table.component';
     LoginComponent,
     SignupComponent,
     TaskTableComponent,
+    DialogContentComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,6 +29,8 @@ import { TaskTableComponent } from './task-table/task-table.component';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

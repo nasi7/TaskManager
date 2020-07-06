@@ -5,5 +5,14 @@ table {
 .mat-form-field {
   font-size: 14px;
   width: 30%;
-  margin: 25px 0 0 1050px;
+  margin-top: 25px;
+}
+
+#addButton {
+  margin-left: 880px;
+  margin-right: 20px;
+}
+
+.mat-headline {
+  font-family: "Montserrat", sans-serif;
 }

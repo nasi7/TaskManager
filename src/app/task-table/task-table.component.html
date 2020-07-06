@@ -1,7 +1,18 @@
 <div class="mat-elevation-z10">
   <mat-toolbar color="primary">
-    <p class="mat-headline">All Tasks</p>
+    <p class="mat-headline" style="padding-top: 25px;">All Tasks</p>
     <span class="example-spacer"></span>
+    <button
+      id="addButton"
+      mat-fab
+      color="accent"
+      matTooltip="Add New Task"
+      matTooltipPosition="left"
+      aria-label="Button that displays a tooltip when focused or hovered over"
+      (click)="openDialog()"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
     <mat-form-field appearance="fill">
       <mat-label>Search</mat-label>
       <input

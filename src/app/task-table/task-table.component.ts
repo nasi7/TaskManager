@@ -1,8 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ServerDataService } from '../server-data.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogContentComponent } from '../dialog-content/dialog-content.component';
+import { FormGroup } from '@angular/forms';
 
 export class Task {
   contact: string;
@@ -27,13 +30,29 @@ export class TaskTableComponent implements OnInit {
     'dueDate',
     'taskType',
   ];
-  dataSource: Task[] = [];
+  dataSource: Task[];
   allTasks: any;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private DataService: ServerDataService) {
-    DataService.getAllQuotes().subscribe(
+  constructor(
+    private DataService: ServerDataService,
+    public dialog: MatDialog
+  ) {}
+
+  ngOnInit(): void {
+    this.dataSource = [];
+    this.getDataFromDB();
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.allTasks.filter = filterValue.trim().toLowerCase();
+  }
+
+  getDataFromDB() {
+    this.dataSource = [];
+    this.DataService.getAllQuotes().subscribe(
       (data) => {
         for (const key in data) {
           let quote = new Task();
@@ -59,10 +78,12 @@ export class TaskTableComponent implements OnInit {
     );
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.allTasks.filter = filterValue.trim().toLowerCase();
-  }
+  openDialog() {
+    const dialogRef = this.dialog.open(DialogContentComponent);
 
-  ngOnInit(): void {}
+    dialogRef.afterClosed().subscribe((result) => {
+      this.getDataFromDB();
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 }

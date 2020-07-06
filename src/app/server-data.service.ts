@@ -16,7 +16,22 @@ export class ServerDataService {
 
   addUser() {}
 
-  addQuote() {}
+  addQuote(
+    quoteType: string,
+    contact: string,
+    taskDesc: string,
+    dueDate: Date,
+    taskType: string
+  ) {
+    debugger;
+    return this.http.post(this.url, {
+      QuoteType: quoteType,
+      Contact: contact,
+      TaskDescription: taskDesc,
+      DueDate: dueDate,
+      TaskType: taskType,
+    });
+  }
 
   editQuote() {}
 
