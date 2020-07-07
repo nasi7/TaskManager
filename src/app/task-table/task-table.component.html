@@ -8,7 +8,6 @@
       color="accent"
       matTooltip="Add New Task"
       matTooltipPosition="left"
-      aria-label="Button that displays a tooltip when focused or hovered over"
     >
       <mat-icon>add</mat-icon>
     </button>
@@ -70,13 +69,28 @@
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let element" class="action-link">
         <div class="options">
-          <button mat-mini-fab (click)="openDialog('Info', element)">
+          <button
+            matTooltip="View Task"
+            matTooltipPosition="above"
+            mat-mini-fab
+            (click)="openDialog('Info', element)"
+          >
             <mat-icon>info</mat-icon>
           </button>
-          <button mat-mini-fab (click)="openDialog('Update', element)">
+          <button
+            matTooltip="Edit Task"
+            matTooltipPosition="above"
+            mat-mini-fab
+            (click)="openDialog('Update', element)"
+          >
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-mini-fab (click)="openDialog('Delete', element)">
+          <button
+            matTooltip="Delete Task"
+            matTooltipPosition="above"
+            mat-mini-fab
+            (click)="openDialog('Delete', element)"
+          >
             <mat-icon>delete</mat-icon>
           </button>
         </div>

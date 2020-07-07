@@ -93,6 +93,9 @@
   <mat-label>Task Type</mat-label>
   <h2 class="items">{{ task.taskType }}</h2>
   <mat-divider></mat-divider>
+  <mat-label>Due Date</mat-label>
+  <h2 class="items">{{ task.dueDate }}</h2>
+  <mat-divider></mat-divider>
   <mat-label>Task Description</mat-label>
   <h2 class="items">{{ task.taskDesc }}</h2>
   <mat-divider></mat-divider>
@@ -102,8 +105,14 @@
   >?
 </div>
 <mat-dialog-actions>
-  <button mat-button (click)="closeDialog()">Cancel</button>
+  <button mat-button *ngIf="action != 'Info'" (click)="closeDialog()">
+    Cancel
+  </button>
+  <button mat-button *ngIf="action == 'Info'" (click)="closeDialog()">
+    Close
+  </button>
   <button
+    *ngIf="action != 'Info'"
     mat-button
     [color]="confirmButton"
     (click)="doAction()"
