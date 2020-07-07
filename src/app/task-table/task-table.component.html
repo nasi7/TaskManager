@@ -8,6 +8,7 @@
       color="accent"
       matTooltip="Add New Task"
       matTooltipPosition="left"
+      (click)="openDialog('Add', {})"
     >
       <mat-icon>add</mat-icon>
     </button>
@@ -25,7 +26,9 @@
     <!-- Quote Type Column -->
     <ng-container matColumnDef="quoteType">
       <mat-header-cell *matHeaderCellDef> Quote Type </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element.quoteType }} </mat-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.quoteType }}
+      </mat-cell>
     </ng-container>
 
     <!-- Quote ID Column -->
@@ -98,7 +101,10 @@
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    <mat-row
+      appHighlight
+      *matRowDef="let row; columns: displayedColumns"
+    ></mat-row>
   </mat-table>
   <mat-paginator
     [pageSizeOptions]="[5, 10, 20]"

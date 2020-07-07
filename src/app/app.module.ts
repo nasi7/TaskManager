@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 
@@ -13,6 +13,8 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { TaskTableComponent } from './task-table/task-table.component';
 import { DialogContentComponent } from './dialog-content/dialog-content.component';
+import { HighlightDirective } from './highlight.directive';
+import { TokenInjectorService } from './token-injector.service';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { DialogContentComponent } from './dialog-content/dialog-content.componen
     SignupComponent,
     TaskTableComponent,
     DialogContentComponent,
+    HighlightDirective,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,9 @@ import { DialogContentComponent } from './dialog-content/dialog-content.componen
     ReactiveFormsModule,
     MatNativeDateModule,
   ],
-  providers: [],
+  providers: [
+    // { provide: HTTP_INTERCEPTORS, useClass: TokenInjectorService, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,16 +1,15 @@
 <h2 mat-dialog-title *ngIf="action != 'Info'">{{ action }} Task</h2>
 <h2 mat-dialog-title *ngIf="action == 'Info'">Task Details</h2>
 
-<!-- render when editing -->
-<mat-dialog-content *ngIf="action == 'Update'" class="mat-typography">
-  <form [formGroup]="AddTaskForm" (ngSubmit)="onSubmit()">
+<!-- render when adding task -->
+<mat-dialog-content *ngIf="action == 'Add'" class="mat-typography">
+  <form [formGroup]="TaskForm" (ngSubmit)="onAddSubmit()">
     <mat-form-field appearance="fill" color="accent">
       <mat-label>Quote Type</mat-label>
       <input matInput formControlName="quoteType" />
       <div
         *ngIf="
-          !AddTaskForm.get('quoteType').valid &&
-          AddTaskForm.get('quoteType').touched
+          !TaskForm.get('quoteType').valid && TaskForm.get('quoteType').touched
         "
         style="color: red;"
       >
@@ -23,8 +22,7 @@
       <input matInput formControlName="contact" />
       <div
         *ngIf="
-          !AddTaskForm.get('contact').valid &&
-          AddTaskForm.get('contact').touched
+          !TaskForm.get('contact').valid && TaskForm.get('contact').touched
         "
         style="color: red;"
       >
@@ -39,8 +37,7 @@
       <mat-datepicker #picker></mat-datepicker>
       <div
         *ngIf="
-          !AddTaskForm.get('dueDate').valid &&
-          AddTaskForm.get('dueDate').touched
+          !TaskForm.get('dueDate').valid && TaskForm.get('dueDate').touched
         "
         style="color: red;"
       >
@@ -53,8 +50,7 @@
       <input matInput formControlName="taskType" />
       <div
         *ngIf="
-          !AddTaskForm.get('taskType').valid &&
-          AddTaskForm.get('taskType').touched
+          !TaskForm.get('taskType').valid && TaskForm.get('taskType').touched
         "
         style="color: red;"
       >
@@ -72,7 +68,81 @@
       type="submit"
       mat-raised-button
       color="accent"
-      [disabled]="!AddTaskForm.valid"
+      [disabled]="!TaskForm.valid"
+    >
+      Save Changes
+    </button>
+  </form>
+</mat-dialog-content>
+
+<!-- render when editing -->
+<mat-dialog-content *ngIf="action == 'Update'" class="mat-typography">
+  <form [formGroup]="TaskForm" (ngSubmit)="onEditSubmit()">
+    <mat-form-field appearance="fill" color="accent">
+      <mat-label>Quote Type</mat-label>
+      <input matInput formControlName="quoteType" />
+      <div
+        *ngIf="
+          !TaskForm.get('quoteType').valid && TaskForm.get('quoteType').touched
+        "
+        style="color: red;"
+      >
+        *Required
+      </div>
+    </mat-form-field>
+    <br />
+    <mat-form-field color="accent" appearance="fill">
+      <mat-label>Contact</mat-label>
+      <input matInput formControlName="contact" />
+      <div
+        *ngIf="
+          !TaskForm.get('contact').valid && TaskForm.get('contact').touched
+        "
+        style="color: red;"
+      >
+        *Required
+      </div>
+    </mat-form-field>
+    <br />
+    <mat-form-field color="accent" appearance="fill">
+      <mat-label>Due Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dueDate" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <div
+        *ngIf="
+          !TaskForm.get('dueDate').valid && TaskForm.get('dueDate').touched
+        "
+        style="color: red;"
+      >
+        *Required
+      </div>
+    </mat-form-field>
+    <br />
+    <mat-form-field color="accent" appearance="fill">
+      <mat-label>Task Type</mat-label>
+      <input matInput formControlName="taskType" />
+      <div
+        *ngIf="
+          !TaskForm.get('taskType').valid && TaskForm.get('taskType').touched
+        "
+        style="color: red;"
+      >
+        *Required
+      </div>
+    </mat-form-field>
+    <br />
+    <mat-form-field color="accent" appearance="fill">
+      <mat-label>Task Description</mat-label>
+      <textarea matInput formControlName="taskDescription"></textarea>
+    </mat-form-field>
+    <br />
+    <button
+      id="saveButton"
+      type="submit"
+      mat-raised-button
+      color="accent"
+      [disabled]="!TaskForm.valid"
     >
       Save Changes
     </button>
@@ -100,6 +170,8 @@
   <h2 class="items">{{ task.taskDesc }}</h2>
   <mat-divider></mat-divider>
 </mat-dialog-content>
+
+<!-- render when showing delete -->
 <div *ngIf="action == 'Delete'">
   Are you sure you want to delete Task #<b>{{ task.ID }}</b
   >?
@@ -114,7 +186,7 @@
   <button
     *ngIf="action != 'Info'"
     mat-button
-    [color]="confirmButton"
+    [color]="action == 'Delete' ? 'warn' : 'accent'"
     (click)="doAction()"
     cdkFocusInitial
   >

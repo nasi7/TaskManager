@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Task } from './task-table/task-table.component';
 
 @Injectable({
@@ -12,7 +12,9 @@ export class ServerDataService {
 
   constructor(private http: HttpClient) {}
   getAllQuotes() {
-    return this.http.get(this.APIurl);
+    const token = 'bearer ' + sessionStorage.getItem('userToken');
+    const headers = new HttpHeaders({ Authorization: token });
+    return this.http.get(this.APIurl, { headers: headers });
   }
 
   verifyUser(username: string, password: string) {
@@ -20,16 +22,11 @@ export class ServerDataService {
     body.set('grant_type', 'password');
     body.set('Username', username);
     body.set('Password', password);
-
+    debugger;
     return this.http.post(this.accessUrl, body.toString());
   }
 
   addUser(email, password, confirmPassword) {
-    // let body = new URLSearchParams();
-    // body.set('Email', email);
-    // body.set('Password', password);
-    // body.set('ConfirmPassword', confirmPassword);
-    // debugger;
     let body = JSON.stringify({
       Email: email,
       Password: password,
@@ -58,8 +55,6 @@ export class ServerDataService {
   }
 
   editQuote(ID, task: Task) {
-    let IDparams: HttpParams;
-    IDparams.append('id', ID);
     let body = JSON.stringify({
       QuoteType: task.quoteType,
       Contact: task.contact,
@@ -67,8 +62,12 @@ export class ServerDataService {
       DueDate: task.dueDate,
       TaskType: task.taskType,
     });
-    return this.http.put(this.APIurl, body, { params: IDparams });
+    let appendedURL = this.APIurl + '/' + ID;
+    return this.http.put(appendedURL, body);
   }
 
-  deleteQuote() {}
+  deleteQuote(ID) {
+    let appendedURL = this.APIurl + '/' + ID;
+    return this.http.delete(appendedURL);
+  }
 }

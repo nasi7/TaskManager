@@ -23,7 +23,9 @@ export class LoginComponent implements OnInit {
     this.username = loginForm.controls.username.value;
     this.password = loginForm.controls.password.value;
     this.DataService.verifyUser(this.username, this.password).subscribe(
-      (data) => console.log(data),
+      (data) => {
+        sessionStorage.setItem('userToken', data['access_token']);
+      },
       (error) => console.log(error),
       () => this.myRouter.navigateByUrl('/tasks')
     );

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ServerDataService } from '../server-data.service';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
@@ -33,6 +33,7 @@ export class TaskTableComponent implements OnInit {
   ];
   dataSource: Task[];
   allTasks: any;
+  @ViewChild(MatTable, { static: true }) table: MatTable<any>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -79,15 +80,6 @@ export class TaskTableComponent implements OnInit {
     );
   }
 
-  // openDialog() {
-  //   const dialogRef = this.dialog.open(DialogContentComponent);
-
-  //   dialogRef.afterClosed().subscribe((result) => {
-  //     this.getDataFromDB();
-  //     console.log(`Dialog result: ${result}`);
-  //   });
-  // }
-
   openDialog(action, obj) {
     obj.action = action;
     const dialogRef = this.dialog.open(DialogContentComponent, {
@@ -96,7 +88,15 @@ export class TaskTableComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.getDataFromDB();
+      if (result.event == 'Delete') {
+        this.DataService.deleteQuote(result.data.ID).subscribe(
+          (data) => console.log(data),
+          (error) => console.log(error),
+          () => this.getDataFromDB()
+        );
+      } else {
+        this.getDataFromDB();
+      }
     });
   }
 }

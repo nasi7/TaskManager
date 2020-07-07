@@ -10,10 +10,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./dialog-content.component.css'],
 })
 export class DialogContentComponent implements OnInit {
-  AddTaskForm: FormGroup;
+  TaskForm: FormGroup;
   task: any;
   action: string;
-  confirmButton = 'accent';
 
   constructor(
     private DataService: ServerDataService,
@@ -22,19 +21,29 @@ export class DialogContentComponent implements OnInit {
   ) {
     this.task = { ...data };
     this.action = this.task.action;
-    if (this.action == 'Delete') {
-      this.confirmButton = 'warn';
-    }
   }
 
   ngOnInit(): void {
-    this.AddTaskForm = new FormGroup({
-      quoteType: new FormControl(this.task.quoteType, Validators.required),
-      taskType: new FormControl(this.task.taskType, Validators.required),
-      contact: new FormControl(this.task.contact, Validators.required),
-      dueDate: new FormControl(this.task.dueDate, Validators.required),
-      taskDescription: new FormControl(this.task.taskDesc, Validators.required),
-    });
+    if (this.action == 'Add') {
+      this.TaskForm = new FormGroup({
+        quoteType: new FormControl(null, Validators.required),
+        taskType: new FormControl(null, Validators.required),
+        contact: new FormControl(null, Validators.required),
+        dueDate: new FormControl(null, Validators.required),
+        taskDescription: new FormControl(null, Validators.required),
+      });
+    } else {
+      this.TaskForm = new FormGroup({
+        quoteType: new FormControl(this.task.quoteType, Validators.required),
+        taskType: new FormControl(this.task.taskType, Validators.required),
+        contact: new FormControl(this.task.contact, Validators.required),
+        dueDate: new FormControl(this.task.dueDate, Validators.required),
+        taskDescription: new FormControl(
+          this.task.taskDesc,
+          Validators.required
+        ),
+      });
+    }
   }
 
   doAction() {
@@ -45,14 +54,14 @@ export class DialogContentComponent implements OnInit {
     this.dialogRef.close({ event: 'Cancel' });
   }
 
-  onSubmit() {
-    let tempTask: Task;
-    tempTask.quoteType = this.AddTaskForm.controls.quoteType.value;
-    tempTask.contact = this.AddTaskForm.controls.contact.value;
-    tempTask.taskDesc = this.AddTaskForm.controls.taskDescription.value;
-    tempTask.dueDate = this.AddTaskForm.controls.dueDate.value;
-    tempTask.taskType = this.AddTaskForm.controls.taskType.value;
-    let ID: string = this.task.ID.toString();
+  onEditSubmit() {
+    let tempTask = new Task();
+    tempTask.quoteType = this.TaskForm.controls.quoteType.value;
+    tempTask.contact = this.TaskForm.controls.contact.value;
+    tempTask.taskDesc = this.TaskForm.controls.taskDescription.value;
+    tempTask.dueDate = this.TaskForm.controls.dueDate.value;
+    tempTask.taskType = this.TaskForm.controls.taskType.value;
+    let ID: number = this.task.ID;
 
     this.DataService.editQuote(ID, tempTask).subscribe(
       (val) => {
@@ -65,23 +74,31 @@ export class DialogContentComponent implements OnInit {
         console.log('The PUT observable is now completed.');
       }
     );
+  }
 
-    // this.DataService.addQuote(
-    //   quoteType,
-    //   contact,
-    //   taskDesc,
-    //   dueDate,
-    //   taskType
-    // ).subscribe(
-    //   (val) => {
-    //     console.log('POST call successful value returned in body', val);
-    //   },
-    //   (response) => {
-    //     console.log('POST call in error', response);
-    //   },
-    //   () => {
-    //     console.log('The POST observable is now completed.');
-    //   }
-    // );
+  onAddSubmit() {
+    let quoteType = this.TaskForm.controls.quoteType.value;
+    let contact = this.TaskForm.controls.contact.value;
+    let taskDesc = this.TaskForm.controls.taskDescription.value;
+    let dueDate = this.TaskForm.controls.dueDate.value;
+    let taskType = this.TaskForm.controls.taskType.value;
+
+    this.DataService.addQuote(
+      quoteType,
+      contact,
+      taskDesc,
+      dueDate,
+      taskType
+    ).subscribe(
+      (val) => {
+        console.log('POST call successful value returned in body', val);
+      },
+      (response) => {
+        console.log('POST call in error', response);
+      },
+      () => {
+        console.log('The POST observable is now completed.');
+      }
+    );
   }
 }
