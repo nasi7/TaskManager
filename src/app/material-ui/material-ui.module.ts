@@ -11,6 +11,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [],
@@ -27,6 +30,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDatepickerModule,
     MatFormFieldModule,
     MatDialogModule,
+    MatSnackBarModule,
+    MatDividerModule,
+    MatChipsModule,
   ],
 })
 export class MaterialUiModule {}

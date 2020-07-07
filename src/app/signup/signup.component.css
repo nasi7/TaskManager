@@ -36,8 +36,15 @@ mat-form-field.mat-form-field,
   margin-bottom: 20px;
 }
 
+#confirmPassword {
+  margin-top: 10px;
+  width: 100%;
+  border-radius: 10px;
+}
+
 #username:hover,
-#password:hover {
+#password:hover,
+#confirmPassword:hover {
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
 }
 

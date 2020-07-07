@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, Form, NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
+import { ServerDataService } from '../server-data.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,16 +12,20 @@ export class LoginComponent implements OnInit {
   hide = true;
   private username: string;
   private password: string;
-  constructor() {}
+  constructor(
+    private DataService: ServerDataService,
+    private myRouter: Router
+  ) {}
 
   ngOnInit(): void {}
 
   handleSubmit(loginForm: NgForm) {
     this.username = loginForm.controls.username.value;
     this.password = loginForm.controls.password.value;
-    this.validateUser();
+    this.DataService.verifyUser(this.username, this.password).subscribe(
+      (data) => console.log(data),
+      (error) => console.log(error),
+      () => this.myRouter.navigateByUrl('/tasks')
+    );
   }
-
-  //TODO
-  validateUser() {}
 }

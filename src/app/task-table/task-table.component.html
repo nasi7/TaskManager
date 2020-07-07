@@ -4,12 +4,11 @@
     <span class="example-spacer"></span>
     <button
       id="addButton"
-      mat-fab
+      mat-raised-button
       color="accent"
       matTooltip="Add New Task"
       matTooltipPosition="left"
       aria-label="Button that displays a tooltip when focused or hovered over"
-      (click)="openDialog()"
     >
       <mat-icon>add</mat-icon>
     </button>
@@ -64,6 +63,24 @@
     <ng-container matColumnDef="taskType">
       <mat-header-cell *matHeaderCellDef> Task Type </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{ element.taskType }} </mat-cell>
+    </ng-container>
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let element" class="action-link">
+        <div class="options">
+          <button mat-mini-fab (click)="openDialog('Info', element)">
+            <mat-icon>info</mat-icon>
+          </button>
+          <button mat-mini-fab (click)="openDialog('Update', element)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-mini-fab (click)="openDialog('Delete', element)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

@@ -1,20 +1,42 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Task } from './task-table/task-table.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ServerDataService {
-  url: string = 'http://localhost/TaskManagerAPI/api/quotes';
+  APIurl: string = 'http://localhost/TaskManagerAPI/api/quotes';
+  accessUrl: string = 'http://localhost/TaskManagerAPI/token';
+  signupUrl: string = 'http://localhost/TaskManagerAPI/api/account/register';
 
   constructor(private http: HttpClient) {}
   getAllQuotes() {
-    return this.http.get(this.url);
+    return this.http.get(this.APIurl);
   }
 
-  verifyUser() {}
+  verifyUser(username: string, password: string) {
+    let body = new URLSearchParams();
+    body.set('grant_type', 'password');
+    body.set('Username', username);
+    body.set('Password', password);
 
-  addUser() {}
+    return this.http.post(this.accessUrl, body.toString());
+  }
+
+  addUser(email, password, confirmPassword) {
+    // let body = new URLSearchParams();
+    // body.set('Email', email);
+    // body.set('Password', password);
+    // body.set('ConfirmPassword', confirmPassword);
+    // debugger;
+    let body = JSON.stringify({
+      Email: email,
+      Password: password,
+      ConfirmPassword: confirmPassword,
+    });
+    return this.http.post(this.signupUrl, body);
+  }
 
   addQuote(
     quoteType: string,
@@ -23,17 +45,30 @@ export class ServerDataService {
     dueDate: Date,
     taskType: string
   ) {
-    debugger;
-    return this.http.post(this.url, {
-      QuoteType: quoteType,
-      Contact: contact,
-      TaskDescription: taskDesc,
-      DueDate: dueDate,
-      TaskType: taskType,
-    });
+    return this.http.post(
+      this.APIurl,
+      JSON.stringify({
+        QuoteType: quoteType,
+        Contact: contact,
+        TaskDescription: taskDesc,
+        DueDate: dueDate,
+        TaskType: taskType,
+      })
+    );
   }
 
-  editQuote() {}
+  editQuote(ID, task: Task) {
+    let IDparams: HttpParams;
+    IDparams.append('id', ID);
+    let body = JSON.stringify({
+      QuoteType: task.quoteType,
+      Contact: task.contact,
+      TaskDescription: task.taskDesc,
+      DueDate: task.dueDate,
+      TaskType: task.taskType,
+    });
+    return this.http.put(this.APIurl, body, { params: IDparams });
+  }
 
   deleteQuote() {}
 }

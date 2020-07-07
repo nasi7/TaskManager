@@ -29,6 +29,7 @@ export class TaskTableComponent implements OnInit {
     'taskDesc',
     'dueDate',
     'taskType',
+    'action',
   ];
   dataSource: Task[];
   allTasks: any;
@@ -78,12 +79,24 @@ export class TaskTableComponent implements OnInit {
     );
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(DialogContentComponent);
+  // openDialog() {
+  //   const dialogRef = this.dialog.open(DialogContentComponent);
+
+  //   dialogRef.afterClosed().subscribe((result) => {
+  //     this.getDataFromDB();
+  //     console.log(`Dialog result: ${result}`);
+  //   });
+  // }
+
+  openDialog(action, obj) {
+    obj.action = action;
+    const dialogRef = this.dialog.open(DialogContentComponent, {
+      width: '500px',
+      data: obj,
+    });
 
     dialogRef.afterClosed().subscribe((result) => {
       this.getDataFromDB();
-      console.log(`Dialog result: ${result}`);
     });
   }
 }
