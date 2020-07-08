@@ -32,7 +32,7 @@ export class TaskTableComponent implements OnInit {
     'taskType',
     'action',
   ];
-  isLoading: boolean;
+  isLoading: boolean = true;
   dataSource: Task[];
   allTasks: any;
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
