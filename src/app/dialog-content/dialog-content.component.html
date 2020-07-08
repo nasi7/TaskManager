@@ -61,6 +61,15 @@
     <mat-form-field color="accent" appearance="fill">
       <mat-label>Task Description</mat-label>
       <textarea matInput formControlName="taskDescription"></textarea>
+      <div
+        *ngIf="
+          !TaskForm.get('taskDescription').valid &&
+          TaskForm.get('taskDescription').touched
+        "
+        style="color: red;"
+      >
+        *Required
+      </div>
     </mat-form-field>
     <br />
     <button
@@ -135,6 +144,15 @@
     <mat-form-field color="accent" appearance="fill">
       <mat-label>Task Description</mat-label>
       <textarea matInput formControlName="taskDescription"></textarea>
+      <div
+        *ngIf="
+          !TaskForm.get('taskDescription').valid &&
+          TaskForm.get('taskDescription').touched
+        "
+        style="color: red;"
+      >
+        *Required
+      </div>
     </mat-form-field>
     <br />
     <button
