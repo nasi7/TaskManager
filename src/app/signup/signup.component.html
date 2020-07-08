@@ -7,6 +7,12 @@
   <div class="row">
     <div class="col left">
       <p class="mat-display-1">Sign Up</p>
+      <br />
+      <p class="mat-subheading-1">
+        Passwords must be <strong>8 characters long</strong>, contain a
+        <strong>Number</strong>, <strong>Upper Case Letter</strong>, and a
+        <strong>Special Character</strong>.
+      </p>
       <form [formGroup]="signupForm" (ngSubmit)="handleSubmit()">
         <mat-form-field id="username" appearance="fill">
           <mat-label>Username or Email</mat-label>
@@ -20,6 +26,13 @@
         <mat-form-field id="password" appearance="fill">
           <mat-label>Enter new password</mat-label>
           <input formControlName="password" matInput [type]="'password'" />
+          <mat-error
+            *ngIf="
+              signupForm.controls.password.dirty &&
+              signupForm.controls.password.errors
+            "
+            >Invalid Password</mat-error
+          >
         </mat-form-field>
         <mat-form-field id="confirmPassword" appearance="fill">
           <mat-label>Confirm password</mat-label>
@@ -51,6 +64,7 @@
         >
           Sign Up
         </button>
+        <mat-spinner [diameter]="30" *ngIf="isLoading"></mat-spinner>
       </form>
     </div>
     <div class="col">

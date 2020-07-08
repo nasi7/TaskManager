@@ -19,13 +19,22 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
   message: string;
+  isLoading = false;
   public signupForm: FormGroup = this.fb.group(
     {
       email: [
         null,
         Validators.compose([Validators.email, Validators.required]),
       ],
-      password: [],
+      password: [
+        null,
+        Validators.compose([
+          Validators.required,
+          Validators.pattern(
+            '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$'
+          ),
+        ]),
+      ],
       confirmPassword: [null, Validators.required],
     },
     {
@@ -42,21 +51,35 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  openSnackBar() {
+  onSuccessSnackBar() {
     this._snackBar.openFromComponent(confirmationComponent, {
       duration: 2200,
     });
   }
 
+  onFailSnackBar() {
+    this._snackBar.openFromComponent(signupFailedComponent, {
+      duration: 2200,
+    });
+  }
+
   handleSubmit() {
+    this.isLoading = true;
     var email = this.signupForm.controls.email.value;
     var password = this.signupForm.controls.password.value;
     var confirmPass = this.signupForm.controls.confirmPassword.value;
     this.DataService.addUser(email, password, confirmPass).subscribe(
-      (data) => console.log(data),
-      (error) => {},
+      (data) => {
+        console.log(data);
+        this.isLoading = false;
+      },
+      (error) => {
+        this.isLoading = false;
+        this.onFailSnackBar();
+      },
       () => {
-        this.openSnackBar();
+        this.isLoading = false;
+        this.onSuccessSnackBar();
         this.myRoute.navigateByUrl('/');
       }
     );
@@ -86,6 +109,23 @@ export class SignupComponent implements OnInit {
   ],
 })
 export class confirmationComponent {
+  message;
+  constructor() {}
+}
+
+@Component({
+  selector: 'failedSignup',
+  template: ` <p class="mat-title">Sign Up Failed. Try Again</p> `,
+  styles: [
+    `
+      .mat-title {
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+      }
+    `,
+  ],
+})
+export class signupFailedComponent {
   message;
   constructor() {}
 }

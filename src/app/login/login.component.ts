@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class LoginComponent implements OnInit {
   hide = true;
+  isLoading: boolean = false;
   private username: string;
   private password: string;
   constructor(
@@ -28,13 +29,19 @@ export class LoginComponent implements OnInit {
   }
 
   handleSubmit(loginForm: NgForm) {
+    this.isLoading = true;
+    debugger;
     this.username = loginForm.controls.username.value;
     this.password = loginForm.controls.password.value;
     this.DataService.verifyUser(this.username, this.password).subscribe(
       (data) => {
         sessionStorage.setItem('userToken', data['access_token']);
+        this.isLoading = false;
       },
-      (error) => this.openSnackBar(),
+      (error) => {
+        this.openSnackBar();
+        // this.isLoading = false;
+      },
       () => this.myRouter.navigateByUrl('/tasks')
     );
   }

@@ -59,8 +59,8 @@
           type="submit"
           [disabled]="!loginForm.valid"
         >
-          Login
-        </button>
+          Login</button
+        ><mat-spinner [diameter]="30" *ngIf="isLoading"></mat-spinner>
       </form>
       <div class="mat-h3">
         Don't have an account?
