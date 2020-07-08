@@ -14,6 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [],
@@ -33,6 +34,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatSnackBarModule,
     MatDividerModule,
     MatChipsModule,
+    MatCardModule,
   ],
 })
 export class MaterialUiModule {}

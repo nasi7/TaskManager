@@ -6,6 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogContentComponent } from '../dialog-content/dialog-content.component';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 export class Task {
   contact: string;
@@ -31,6 +32,7 @@ export class TaskTableComponent implements OnInit {
     'taskType',
     'action',
   ];
+  isLoading: boolean;
   dataSource: Task[];
   allTasks: any;
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
@@ -39,12 +41,18 @@ export class TaskTableComponent implements OnInit {
 
   constructor(
     private DataService: ServerDataService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public myRouter: Router
   ) {}
 
   ngOnInit(): void {
     this.dataSource = [];
     this.getDataFromDB();
+  }
+
+  logout() {
+    sessionStorage.removeItem('userToken');
+    this.myRouter.navigateByUrl('');
   }
 
   applyFilter(event: Event) {
@@ -56,6 +64,7 @@ export class TaskTableComponent implements OnInit {
     this.dataSource = [];
     this.DataService.getAllQuotes().subscribe(
       (data) => {
+        this.isLoading = false;
         for (const key in data) {
           let quote = new Task();
           quote.ID = data[key].ID;
@@ -68,6 +77,7 @@ export class TaskTableComponent implements OnInit {
         }
       },
       (error) => {
+        this.isLoading = false;
         console.log(error);
       },
       () => {

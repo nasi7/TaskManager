@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent implements OnInit {
+  message: string;
   public signupForm: FormGroup = this.fb.group(
     {
       email: [
@@ -53,7 +54,7 @@ export class SignupComponent implements OnInit {
     var confirmPass = this.signupForm.controls.confirmPassword.value;
     this.DataService.addUser(email, password, confirmPass).subscribe(
       (data) => console.log(data),
-      (error) => console.log(error),
+      (error) => {},
       () => {
         this.openSnackBar();
         this.myRoute.navigateByUrl('/');
@@ -74,7 +75,7 @@ export class SignupComponent implements OnInit {
 
 @Component({
   selector: 'confirmUserSignup',
-  template: ` <p class="mat-title">Sign up successful!</p> `,
+  template: ` <p class="mat-title">Sign Up Successful</p> `,
   styles: [
     `
       .mat-title {
@@ -84,4 +85,7 @@ export class SignupComponent implements OnInit {
     `,
   ],
 })
-export class confirmationComponent {}
+export class confirmationComponent {
+  message;
+  constructor() {}
+}

@@ -1,3 +1,8 @@
+<mat-toolbar color="primary" class="mat-elevation-z12">
+  <p class="mat-headline">
+    Task Manager
+  </p>
+</mat-toolbar>
 <div class="login_space">
   <div class="row">
     <div class="col left">
@@ -13,6 +18,13 @@
             placeholder="manager@example.com"
           />
           <mat-icon matSuffix>face</mat-icon>
+          <mat-error
+            *ngIf="
+              loginForm.controls.username.invalid &&
+              loginForm.controls.username.touched
+            "
+            >Required</mat-error
+          >
         </mat-form-field>
         <mat-form-field id="password" appearance="fill">
           <mat-label>Enter your password</mat-label>
@@ -32,6 +44,13 @@
           >
             <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
           </button>
+          <mat-error
+            *ngIf="
+              loginForm.controls.password.invalid &&
+              loginForm.controls.password.touched
+            "
+            >Required</mat-error
+          >
         </mat-form-field>
         <button
           id="submitButton"

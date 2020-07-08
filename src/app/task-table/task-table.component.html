@@ -1,7 +1,25 @@
+<mat-toolbar color="primary" class="mat-elevation-z12">
+  <p class="mat-headline">
+    Current Tasks
+  </p>
+  <span class="example-spacer"></span>
+  <button
+    mat-raised-button
+    color="warn"
+    matTooltip="Logout"
+    matTooltipPosition="left"
+    (click)="logout()"
+  >
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+</mat-toolbar>
 <div class="mat-elevation-z10">
   <mat-toolbar color="primary">
-    <p class="mat-headline" style="padding-top: 25px;">All Tasks</p>
-    <span class="example-spacer"></span>
+    <mat-paginator
+      [pageSizeOptions]="[10, 20, 50]"
+      showFirstLastButtons
+    ></mat-paginator>
+    <!-- <span class="example-spacer"></span> -->
     <button
       id="addButton"
       mat-raised-button
@@ -106,8 +124,11 @@
       *matRowDef="let row; columns: displayedColumns"
     ></mat-row>
   </mat-table>
-  <mat-paginator
-    [pageSizeOptions]="[5, 10, 20]"
-    showFirstLastButtons
-  ></mat-paginator>
+  <mat-card
+    *ngIf="isLoading"
+    style="display: flex; justify-content: center; align-items: center;"
+  >
+    <mat-progress-spinner color="primary" mode="indeterminate">
+    </mat-progress-spinner>
+  </mat-card>
 </div>

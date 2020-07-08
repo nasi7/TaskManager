@@ -2,14 +2,29 @@ table {
   width: 100%;
 }
 
+.mat-toolbar {
+  padding: 0;
+}
+
 .mat-form-field {
   font-size: 14px;
   width: 30%;
   margin-top: 25px;
 }
 
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.mat-paginator {
+  margin: 0;
+}
+
+.mat-table {
+  margin-top: 0;
+}
 #addButton {
-  margin-left: 880px;
+  margin-left: 480px;
   margin-right: 20px;
 }
 

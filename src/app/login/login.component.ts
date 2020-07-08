@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ServerDataService } from '../server-data.service';
 import { Route, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -14,10 +15,17 @@ export class LoginComponent implements OnInit {
   private password: string;
   constructor(
     private DataService: ServerDataService,
-    private myRouter: Router
+    private myRouter: Router,
+    public _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {}
+
+  openSnackBar() {
+    this._snackBar.openFromComponent(invalidUserComponent, {
+      duration: 2500,
+    });
+  }
 
   handleSubmit(loginForm: NgForm) {
     this.username = loginForm.controls.username.value;
@@ -26,8 +34,22 @@ export class LoginComponent implements OnInit {
       (data) => {
         sessionStorage.setItem('userToken', data['access_token']);
       },
-      (error) => console.log(error),
+      (error) => this.openSnackBar(),
       () => this.myRouter.navigateByUrl('/tasks')
     );
   }
 }
+
+@Component({
+  selector: 'invalidUser',
+  template: ` <p class="mat-title">Incorrect Username or Password</p> `,
+  styles: [
+    `
+      .mat-title {
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+      }
+    `,
+  ],
+})
+export class invalidUserComponent {}

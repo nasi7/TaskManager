@@ -22,7 +22,6 @@ export class ServerDataService {
     body.set('grant_type', 'password');
     body.set('Username', username);
     body.set('Password', password);
-    debugger;
     return this.http.post(this.accessUrl, body.toString());
   }
 
