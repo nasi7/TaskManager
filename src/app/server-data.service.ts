@@ -12,9 +12,7 @@ export class ServerDataService {
 
   constructor(private http: HttpClient) {}
   getAllQuotes() {
-    const token = 'bearer ' + sessionStorage.getItem('userToken');
-    const headers = new HttpHeaders({ Authorization: token });
-    return this.http.get(this.APIurl, { headers: headers });
+    return this.http.get(this.APIurl);
   }
 
   verifyUser(username: string, password: string) {

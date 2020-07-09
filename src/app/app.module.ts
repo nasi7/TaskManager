@@ -36,7 +36,7 @@ import { TokenInjectorService } from './token-injector.service';
     MatNativeDateModule,
   ],
   providers: [
-    // { provide: HTTP_INTERCEPTORS, useClass: TokenInjectorService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInjectorService, multi: true },
   ],
   bootstrap: [AppComponent],
 })
