@@ -16,7 +16,6 @@ export class TokenInjectorService implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    debugger;
     if (sessionStorage.getItem('userToken')) {
       const token = 'bearer ' + sessionStorage.getItem('userToken');
       let newHeaders = req.headers;

@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
 
   handleSubmit(loginForm: NgForm) {
     this.isLoading = true;
-    debugger;
     this.username = loginForm.controls.username.value;
     this.password = loginForm.controls.password.value;
     this.DataService.verifyUser(this.username, this.password).subscribe(
