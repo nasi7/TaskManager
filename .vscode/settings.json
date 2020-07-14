@@ -1,0 +1,4 @@
+{
+    "appService.deploySubpath": ".",
+    "appService.defaultWebAppToDeploy": "/subscriptions/72e07a4d-e36f-4a5d-8ce3-e5524f37200b/resourceGroups/TaskManager/providers/Microsoft.Web/sites/taskmanagerapp"
+}

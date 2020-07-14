@@ -6,9 +6,12 @@ import { Task } from './task-table/task-table.component';
   providedIn: 'root',
 })
 export class ServerDataService {
-  APIurl: string = 'http://localhost/TaskManagerAPI/api/quotes';
-  accessUrl: string = 'http://localhost/TaskManagerAPI/token';
-  signupUrl: string = 'http://localhost/TaskManagerAPI/api/account/register';
+  APIurl: string =
+    'https://taskmanagerapi20200713053956.azurewebsites.net/api/quotes';
+  accessUrl: string =
+    'https://taskmanagerapi20200713053956.azurewebsites.net/token';
+  signupUrl: string =
+    'https://taskmanagerapi20200713053956.azurewebsites.net/api/account/register';
 
   constructor(private http: HttpClient) {}
   getAllQuotes() {
