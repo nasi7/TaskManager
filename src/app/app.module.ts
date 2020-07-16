@@ -13,7 +13,6 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { TaskTableComponent } from './task-table/task-table.component';
 import { DialogContentComponent } from './dialog-content/dialog-content.component';
-import { HighlightDirective } from './highlight.directive';
 import { TokenInjectorService } from './token-injector.service';
 
 @NgModule({
@@ -23,7 +22,6 @@ import { TokenInjectorService } from './token-injector.service';
     SignupComponent,
     TaskTableComponent,
     DialogContentComponent,
-    HighlightDirective,
   ],
   imports: [
     BrowserModule,
